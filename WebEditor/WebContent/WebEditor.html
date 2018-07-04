@@ -1,0 +1,213 @@
+<html>
+<head>
+<style type="text/css">
+body {
+	margin: 0;
+	background: skyblue;
+}
+
+.header {
+	height: 80px;
+
+	/*background: gold;*/
+}
+
+.menu {
+	height: 50px;
+	background: gold;
+}
+
+.content {
+	height: 450px;
+	background: #fff;
+}
+
+#browser {
+	width: 55%;
+	height: 450px;
+	border: 1px solid skyblue;
+	float: right;
+}
+
+#editor {
+	width: 40%;
+	height: 450px;
+	border: 1px solid skyblue;
+	float: left;
+	resize: none;
+}
+
+.menu input[type="button"] {
+	margin: 5px 0 0 200px;
+	width: 120px;
+	height: 40px;
+}
+</style>
+
+
+    <link rel="stylesheet" href="codemirror/lib/codemirror.css" />
+    <link rel="stylesheet" href="codemirror/theme/3024-day.css" />
+    <link rel="stylesheet" href="codemirror/theme/3024-night.css" />
+    <link rel="stylesheet" href="codemirror/theme/abcdef.css" />
+    <link rel="stylesheet" href="codemirror/theme/ambiance.css" />
+    <link rel="stylesheet" href="codemirror/theme/base16-dark.css" />
+    <link rel="stylesheet" href="codemirror/theme/bespin.css" />
+    <link rel="stylesheet" href="codemirror/theme/base16-light.css" />
+    <link rel="stylesheet" href="codemirror/theme/blackboard.css" />
+    <link rel="stylesheet" href="codemirror/theme/cobalt.css" />
+    <link rel="stylesheet" href="codemirror/theme/colorforth.css" />
+    <link rel="stylesheet" href="codemirror/theme/dracula.css" />
+    <link rel="stylesheet" href="codemirror/theme/duotone-dark.css" />
+    <link rel="stylesheet" href="codemirror/theme/duotone-light.css" />
+    <link rel="stylesheet" href="codemirror/theme/eclipse.css" />
+    <link rel="stylesheet" href="codemirror/theme/elegant.css" />
+    <link rel="stylesheet" href="codemirror/theme/erlang-dark.css" />
+    <link rel="stylesheet" href="codemirror/theme/hopscotch.css" />
+    <link rel="stylesheet" href="codemirror/theme/icecoder.css" />
+    <link rel="stylesheet" href="codemirror/theme/isotope.css" />
+    <link rel="stylesheet" href="codemirror/theme/lesser-dark.css" />
+    <link rel="stylesheet" href="codemirror/theme/liquibyte.css" />
+    <link rel="stylesheet" href="codemirror/theme/material.css" />
+    <link rel="stylesheet" href="codemirror/theme/mbo.css" />
+    <link rel="stylesheet" href="codemirror/theme/mdn-like.css" />
+    <link rel="stylesheet" href="codemirror/theme/midnight.css" />
+    <link rel="stylesheet" href="codemirror/theme/monokai.css" />
+    <link rel="stylesheet" href="codemirror/theme/neat.css" />
+    <link rel="stylesheet" href="codemirror/theme/neo.css" />
+    <link rel="stylesheet" href="codemirror/theme/night.css" />
+    <link rel="stylesheet" href="codemirror/theme/panda-syntax.css" />
+    <link rel="stylesheet" href="codemirror/theme/paraiso-dark.css" />
+    <link rel="stylesheet" href="codemirror/theme/paraiso-light.css" />
+    <link rel="stylesheet" href="codemirror/theme/pastel-on-dark.css" />
+    <link rel="stylesheet" href="codemirror/theme/railscasts.css" />
+    <link rel="stylesheet" href="codemirror/theme/rubyblue.css" />
+    <link rel="stylesheet" href="codemirror/theme/seti.css" />
+    <link rel="stylesheet" href="codemirror/theme/solarized.css" />
+    <link rel="stylesheet" href="codemirror/theme/the-matrix.css" />
+    <link rel="stylesheet" href="codemirror/theme/tomorrow-night-bright.css" />
+    <link rel="stylesheet" href="codemirror/theme/tomorrow-night-eighties.css" />
+    <link rel="stylesheet" href="codemirror/theme/ttcn.css" />
+    <link rel="stylesheet" href="codemirror/theme/twilight.css" />
+    <link rel="stylesheet" href="codemirror/theme/vibrant-ink.css" />
+    <link rel="stylesheet" href="codemirror/theme/xq-dark.css" />
+    <link rel="stylesheet" href="codemirror/theme/xq-light.css" />
+    <link rel="stylesheet" href="codemirror/theme/yeti.css" />
+    <link rel="stylesheet" href="codemirror/theme/zenburn.css" />
+
+    <script src="codemirror/lib/codemirror.js"></script>
+    <script src="codemirror/mode/htmlmixed/htmlmixed.js"></script>
+    <script src="codemirror/mode/xml/xml.js"></script>
+    <script src="codemirror/mode/javascript/javascript.js"></script>
+    <script src="codemirror/mode/css/css.js"></script>
+    <script src="codemirror/mode/vbscript/vbscript.js"></script>
+
+    <script src="codemirror/addon/selection/active-line.js"></script>
+    <script src="codemirror/addon/edit/matchbrackets.js"></script>
+
+</head>
+
+<body>
+
+	<div class="main">
+		<div class="header"></div>
+		<div class="menu">
+			<input class="seeResult" onclick="submitTryit()" value="RUN" type="button"></input>
+		</div>
+		<div class="content">
+       	<div class="browser" id="browser"></div>
+			<textarea id="editor">&lt;!DOCTYPE html&gt;
+&lt;html lang="ko"&gt;
+
+&lt;head&gt;
+	&lt;meta charset="UTF-8"&gt;
+	&lt;title&gt;jQuery Intro&lt;/title&gt;
+	&lt;script src="https://code.jquery.com/jquery-1.12.4.min.js"&gt;&lt;/script&gt;
+	&lt;script&gt;
+		$(function() {
+			$("p").on("click", function() {
+				$("p").css("color", "red");
+			});
+		});
+	&lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+	&lt;p&gt;이제부터 제이쿼리를 다 같이 공부해보죠!!&lt;br&gt;
+	마우스로 글씨를 클릭해보세요!!&lt;/p&gt;
+	
+&lt;/body&gt;
+
+&lt;/html&gt;</textarea>
+		</div>
+		
+	</div>
+</body>
+
+
+<script type="text/javascript">
+var mixedMode = {
+    name: "htmlmixed",
+    scriptTypes: [{matches: /\/x-handlebars-template|\/x-mustache/i,
+                   mode: null},
+                  {matches: /(text|application)\/(x-)?vb(a|script)/i,
+                   mode: "vbscript"}]
+};
+
+var editor = CodeMirror.fromTextArea(document.getElementById("editor"), {
+	mode: mixedMode,
+	lineNumbers: true,
+	styleActiveLine: true,
+	matchBrackets: true,
+	theme: "default"
+});
+
+var curorientationMode = undefined;
+var prevOrientationMode = undefined;
+
+
+function resizeEditor() {
+	if(modeOrientation == mode_automatic){
+		if(!isAndroid()){
+			setOrientation(modeOrientation);  // 안드로이드가 아닌 경우
+		}else{
+			// 안드로이드의 경우 오리엔테이션이 달라진 경우만 체크
+			if(	prevOrientationMode != curOrientationMode){
+				setOrientation(modeOrientation);
+				prevOrientationMode = curOrientationMode;
+			}
+		}
+	}
+	editor.setSize($('.textareawrapper').width(), $('.textareawrapper').height());
+};
+
+$(window).resize(resizeEditor);
+$(document).on('webkitfullscreenchange mozfullscreenchange fullscreenchange MSFullscreenChange', resizeEditor);
+
+
+
+function submitTryit() {
+    document.getElementById("browser").innerHTML = "";
+
+    var text = editor.getDoc().getValue();
+    if(text === undefined || text === null) { return; }
+
+    text = text.trim();
+
+    if(typeof(text) == "string" && text.length > 0) {
+        var ifr = document.createElement("iframe");
+        ifr.setAttribute("frameborder", "0");
+        ifr.setAttribute("id", "iframeResult");                
+        document.getElementById("browser").appendChild(ifr);
+        var ifrw = (ifr.contentWindow) ? ifr.contentWindow : (ifr.contentDocument.document) ? ifr.contentDocument.document : ifr.contentDocument;
+        ifrw.document.open();
+        ifrw.document.write(text);
+        ifrw.document.close();
+    }
+}
+
+
+</script>
+
+</html>
+
