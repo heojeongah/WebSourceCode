@@ -50,6 +50,7 @@
     <link rel="stylesheet" href="codemirror/theme/yeti.css" />
     <link rel="stylesheet" href="codemirror/theme/zenburn.css" />
 
+	<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <script src="codemirror/lib/codemirror.js"></script>
     <script src="codemirror/mode/htmlmixed/htmlmixed.js"></script>
     <script src="codemirror/mode/xml/xml.js"></script>
@@ -60,21 +61,53 @@
     <script src="codemirror/addon/selection/active-line.js"></script>
     <script src="codemirror/addon/edit/matchbrackets.js"></script>
 <style type="text/css">
+* {
+	box-sizing: border-box; -webkit-box-sizing: border-box; -moz-box-sizing: border-box;
+}
 body {
 	margin: 0;
 	background: skyblue;
 }
 
 .header {
-	height: 50px;
+	height: 80px;
 
 	/*background: gold;*/
 }
 
 .menu {
-	height: 50px;
-	background: gold;
+	height: 40px;
+	background: #f1f1f1;
+  	overflow:hidden;
 }
+
+
+/*------------------------------------------------------------*/
+.w3-navbar{
+	list-style-type:none;
+	margin:0;
+	padding:0;
+	overflow:hidden;
+    width:100%;
+	background-color:#A33; /*---*/
+}
+.w3-navbar li{float:left}
+.w3-navbar li a{display:block;padding:8px 16px;margin-top:5px;}
+.w3-navbar li a:hover{color:#000;background-color:#ccc}
+.w3-light-grey,.w3-hover-light-grey:hover{color:#000!important;background-color:#f1f1f1!important}
+
+.w3-navbar .w3-opennav.w3-right{float:right !important}
+.w3-topnav{padding:8px 8px}
+
+#stackA {background-color:#999999;}
+/* #stackV {background-color:#999999;} */
+#stackV.horizontal,#stackV.horizontal {background-color:transparent;}
+#stackV.horizontal:hover {background-color:#d3d3d3;}
+#stackH,#stackH {background-color:transparent;}
+#stackH:hover {background-color:#d3d3d3;}
+#stackH.horizontal {background-color:#999999;}
+
+/*------------------------------------------------------------*/
 
 .container {
 	width: 100%; 
@@ -85,15 +118,13 @@ body {
 	background-color: rgb(241, 241, 241);
 }
 .textareacontainer {
-	width: 49%; 
-	height: 98%; 
-
+	width: 50%; 
+	height: 100%; 
 	float: left;
 }
 .iframecontainer {
-	width: 49%; 
-	height: 98%; 
-	
+	width: 50%; 
+	height: 100%; 
 	float: left;
 }
 .textarea {
@@ -124,23 +155,76 @@ body {
 }
 
 
+#iframeResult {
+	width: 100%; height: 100%; background-color: rgb(255, 255, 255);
+}
+#iframeSource {
+	width: 100%; height: 100%; background-color: rgb(255, 255, 255);
+}
 #editor {
-	padding: 8px; border: currentColor; border-image: none; width: 100%; height: 100%; font-family: consolas,"courier new",monospace; font-size: 15px; background-color: rgb(255, 255, 255); resize: none;
+	padding: 8px; border: currentColor; border-image: none; width: 100%; height: 100%; 
+	font-family: consolas,"courier new",monospace; font-size: 15px; 
+	background-color: rgb(255, 255, 255); resize: none;
 }
 
-.menu input[type="button"] {
-	margin: 5px 0 0 200px;
-	width: 120px;
-	height: 40px;
+.seeResult {
+	padding: 0px 15px; 
+	width: 120px; 
+	height: 35px;
+	color: rgb(255, 255, 255); 
+	line-height: 1.45; 
+	font-size: 15px; 
+	float: right; 
+	cursor: pointer; 
+	box-shadow: 0px 1px 3px rgba(0,0,0,0.12), 0px 1px 2px rgba(0,0,0,0.24); 
+	background-color: #383F96;
+	margin-left:25px;
+	margin-top:5px;
 }
+.seeResult:hover {
+	color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);
+}
+.seeResult:active {
+	background-color: rgb(241, 241, 241);
+}
+
 </style>
 </head>
 
 <body>
 
 		<div class="header"></div>
+		
 		<div class="menu">
-			<input class="seeResult" onclick="submitTryit()" value="RUN" type="button"></input>
+		<ul class="w3-navbar w3-light-grey" style="border-top:1px solid #f1f1f1;">
+            <li style="width:auto !important;float:left;">
+                <span style="padding:8px 10px 8px 10px;display:block" id="navtxt"> </span>
+            </li>
+
+            <li class="stack" style="width:auto !important;float:left;">
+                <a type="button" title="Vertically" onclick="restack(mode_vertical)" id="stackV" class=" ">
+                    <img src="./img/stack_vertically.png" />
+                </a>
+            </li>
+
+            <li class="stack" style="width:auto !important;float:left;">
+                <a type="button" title="Horizontally" onclick="restack(mode_horizontal)" id="stackH" class=" ">
+                    <img src="./img/stack_horizontally.png" />
+                </a>
+            </li>
+
+            <li style="width:auto !important;float:left; text-align:">
+			<input class="seeResult" onclick="submitTryit()" value="결과보기" type="button"></input>            
+			</li>
+
+            <!--
+			<li class="w3-right w3-hide-small">
+				<span style="padding:8px 16px;display:block">
+					Try it Yourself - &#169; <a href="http://www.w3schools.com/" class="w3schoolslink">w3schools.com</a>
+				</span>
+			</li>  
+			-->
+        </ul>
 		</div>
 		<div class="container">
        	<div class="browser" id="browser"></div>
@@ -180,7 +264,7 @@ body {
 
 
 		</div>
-		<p>Select a theme: <select onchange="selectTheme()" id="select">
+		<p>&nbsp;&nbsp;&nbsp;Select a theme: <select onchange="selectTheme()" id="select">
 		    <option selected="">default</option>
 		    <option>3024-day</option>
 		    <option>3024-night</option>
@@ -294,6 +378,42 @@ function submitTryit() {
         ifrw.document.write(text);
         ifrw.document.close();
     }
+}
+
+
+var mode_automatic = 1, mode_horizontal = 2, mode_vertical = 3, mode_null = 0;
+var modeOrientation = mode_automatic;
+var curOrientation = mode_null;
+
+function setOrientation(mode) {
+	var width, height;
+	modeOrientation = mode;
+
+	if(modeOrientation == mode_horizontal){
+		curOrientation = mode;
+		document.getElementById("stackH").style.background = "#999999";
+		document.getElementById("stackV").style.background = "transparent";
+	}else if(modeOrientation == mode_vertical){
+		curOrientation = mode;
+		document.getElementById("stackH").style.background = "transparent";
+		document.getElementById("stackV").style.background = "#999999";
+	}
+
+	if (curOrientation == mode_horizontal) {
+		document.getElementById("textareacontainer").style.height = "50%";
+		document.getElementById("iframecontainer").style.height = "50%";
+		document.getElementById("textareacontainer").style.width = "100%";
+		document.getElementById("iframecontainer").style.width = "100%";
+	} else if(curOrientation == mode_vertical){
+		document.getElementById("textareacontainer").style.height = "100%";
+		document.getElementById("iframecontainer").style.height = "100%";
+		document.getElementById("textareacontainer").style.width = "50%";
+		document.getElementById("iframecontainer").style.width = "50%";
+	}
+}
+
+function restack(mode){
+	setOrientation(mode);
 }
 
 </script>
